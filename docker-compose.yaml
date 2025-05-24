@@ -1,0 +1,11 @@
+services:
+  dovecot:
+    # image: mailserver/dovecot:latest # または dovecot/dovecot
+    image: dovecot/dovecot:2.4.1
+    ports:
+      - "143:143" # IMAP
+      - "110:110" # POP3 (必要に応じて)
+    volumes:
+      - /var/mail:/mail:ro # ホストの /var/mail/root をコンテナの /mail/root に読み取り専用でマウント
+  mail:
+    build: .

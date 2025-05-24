@@ -1,0 +1,19 @@
+FROM ubuntu:latest
+
+# パッケージリストを更新し、必要なパッケージをインストール
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    postfix \
+    mailutils \
+    && rm -rf /var/lib/apt/lists/*
+
+# Postfix の設定
+RUN echo "inet_interfaces = loopback-only" >> /etc/postfix/main.cf \
+    && echo "mydestination = localhost, localhost.localdomain" >> /etc/postfix/main.cf \
+    && echo "mynetworks = 127.0.0.0/8" >> /etc/postfix/main.cf \
+    && echo "relayhost =" >> /etc/postfix/main.cf
+
+# Postfix サービスを起動 (フォアグラウンドで実行)
+CMD ["/usr/sbin/postfix", "start-fg"]
+
+# 25番ポートを公開 (SMTP)
+EXPOSE 25
