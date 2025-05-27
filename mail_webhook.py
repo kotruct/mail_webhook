@@ -37,7 +37,7 @@ try:
             f"Subject: {subject}\n" + 
             f"Date: {date_header}\n" + 
             f"Body: \n{body.strip()}\n" + 
-            f"-----------------------\n"
+            f"----------------------\n"
         )
         
         chunk_size = 1900
@@ -52,7 +52,8 @@ try:
 
             response = requests.post(WEBHOOK_URL, json={
                 "username": msg['From'],
-                "content": content
+                # "content": content
+                "content": f"```{content}```"
             }, headers={"Content-Type": "application/json"})
 
 
@@ -79,7 +80,7 @@ try:
             # to_delete.append(key)
             mbox.remove(key)
             mbox.flush()
-            print(f"メールを削除しました: {key}")
+            # print(f"メールを削除しました: {key}")
 
     # 削除処理
     for key in to_delete:
