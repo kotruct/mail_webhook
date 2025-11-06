@@ -55,6 +55,7 @@ try:
                 # "content": content
                 "content": f"```{content}```"
             }, headers={"Content-Type": "application/json"})
+            time.sleep(1)
 
 
             # if response.status_code == 200:
