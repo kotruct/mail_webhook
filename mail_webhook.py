@@ -4,6 +4,16 @@ import os
 import time
 import sys
 
+import logging
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(name)s: %(message)s",
+)
+logging.getLogger("discord_post.client").setLevel(logging.DEBUG)
+
+
+
 MAIL_PATH = f"/var/mail/{sys.argv[1]}"
 WEBHOOK_URL = f"{sys.argv[2]}?wait=true"
 
