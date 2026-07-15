@@ -50,11 +50,18 @@ try:
             #     content = f"続き: {i+1}\n" + chunk
             content = chunk
 
-            response = requests.post(WEBHOOK_URL, json={
+            #response = requests.post(WEBHOOK_URL, json={
+            #    "username": msg['From'],
+            #    # "content": content
+            #    "content": f"```{content}```"
+            ##}, headers={"Content-Type": "application/json"})
+            from discord_post.client import DiscordPoster
+            poster = DiscordPoster(WEBHOOK_URL)
+            payload = {
+                "content": f"```{content}```",
                 "username": msg['From'],
-                # "content": content
-                "content": f"```{content}```"
-            }, headers={"Content-Type": "application/json"})
+            }
+            response = poster.post(payload)
             time.sleep(1)
 
 
